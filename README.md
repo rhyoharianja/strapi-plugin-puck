@@ -213,6 +213,16 @@ A renderer is about thirty lines: fetch the entry, hand the stored JSON to Puck'
 with the **same config** you registered in the admin. That sameness is the whole point — the
 editor and the site draw from one object, so a block cannot render differently in the two.
 
+## Support
+
+These plugins are free and MIT-licensed. If one saved you a day of work, you are welcome to
+say thanks:
+
+[![PayPal](https://img.shields.io/badge/PayPal-donate-00457C?logo=paypal&logoColor=white)](https://www.paypal.com/paypalme/sgkharianja)
+[![Saweria](https://img.shields.io/badge/Saweria-dukung-FF5C5C?logo=buymeacoffee&logoColor=white)](https://saweria.co/rhioharianja)
+
+Bug reports and pull requests are worth just as much.
+
 ## License
 
 MIT © Suryo Galih Kencana Harianja
