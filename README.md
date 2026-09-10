@@ -213,6 +213,34 @@ A renderer is about thirty lines: fetch the entry, hand the stored JSON to Puck'
 with the **same config** you registered in the admin. That sameness is the whole point — the
 editor and the site draw from one object, so a block cannot render differently in the two.
 
+Import the storage contract from `strapi-plugin-puck/shared` rather than re-deriving it:
+
+```ts
+import { toLayout, imageUrlOf, imageAltOf, type ImageRef } from 'strapi-plugin-puck/shared';
+
+const page = await fetch(`${API}/api/puck/pages/${slug}`).then((r) => r.json());
+
+<Render config={config} data={toLayout(page.data.layout)} />;
+```
+
+Nothing in that entry point imports Strapi, React or `@measured/puck` at runtime — the Puck
+import is `import type` and is erased — so it is safe in a browser bundle, a server renderer
+or an edge function.
+
+**Why it is worth importing rather than writing yourself.** Both functions encode decisions the
+plugin already made when it wrote the column:
+
+- `toLayout` never assumes the value is valid. A `json` column hands its contents back as a
+  *string* once the entry has been touched in the admin, and it can also come back `null` or
+  missing `content`. Each of those degrades to an empty layout instead of throwing — in a
+  field renderer, a throw blanks the whole edit form.
+- `imageUrlOf` / `imageAltOf` read `ImageRef`, which is a union on purpose: layouts saved before
+  there was an asset picker hold a plain URL string, and those rows are live.
+
+A renderer that re-implements these has a second opinion about what a stored layout means. The
+two agree until the day they do not, and the failure is silent: the admin keeps showing the page
+correctly while the site renders it blank.
+
 ## Support
 
 These plugins are free and MIT-licensed. If one saved you a day of work, you are welcome to

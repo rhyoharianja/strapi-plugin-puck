@@ -1,6 +1,6 @@
 {
   "name": "strapi-plugin-puck",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Visual page editor powered by Puck",
   "author": "Suryo Galih Kencana Harianja <harianja.suryo@gmail.com>",
   "license": "MIT",
@@ -14,6 +14,13 @@
   "type": "commonjs",
   "exports": {
     "./package.json": "./package.json",
+    "./shared": {
+      "types": "./dist/shared/index.d.ts",
+      "source": "./shared/index.ts",
+      "require": "./dist/shared/index.js",
+      "import": "./dist/shared/index.js",
+      "default": "./dist/shared/index.js"
+    },
     "./strapi-admin": {
       "types": "./dist/admin/src/index.d.ts",
       "source": "./admin/src/index.ts",
@@ -31,7 +38,6 @@
   },
   "files": [
     "dist",
-    "shared",
     "README.md",
     "LICENSE"
   ],
