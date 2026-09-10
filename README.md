@@ -1,5 +1,7 @@
 # strapi-plugin-puck
 
+[![npm](https://img.shields.io/npm/v/strapi-plugin-puck?logo=npm&logoColor=white&color=CB3837)](https://www.npmjs.com/package/strapi-plugin-puck) ![license MIT](https://img.shields.io/badge/license-MIT-3DA639) ![Strapi 5](https://img.shields.io/badge/Strapi-5-4945FF?logo=strapi&logoColor=white) ![TypeScript 5.9](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white) ![React 18](https://img.shields.io/badge/React-18-20232A?logo=react&logoColor=white) ![Puck visual editor](https://img.shields.io/badge/Puck-visual_editor-E5484D)
+
 Visual block composition for Strapi 5, powered by [Puck](https://puckeditor.com).
 
 It ships as a **custom field** you can add to any content-type — an Article, a campaign, a
@@ -7,7 +9,7 @@ landing page — plus a ready-made `Page` type for when you just want a page bui
 Composing blocks is a capability, not a content-type; tying it to one would mean
 re-modelling content just to lay it out visually.
 
-Part of [Strapi Content Hub](../../README.md).
+One of a family of standalone Strapi 5 plugins — see [the others](https://github.com/rhyoharianja?tab=repositories).
 
 ## Install
 
@@ -18,9 +20,15 @@ pnpm add strapi-plugin-puck @measured/puck
 ```ts
 // config/plugins.ts
 export default {
-  'content-hub-puck': { enabled: true, resolve: 'strapi-plugin-puck' },
+  'puck': { enabled: true, resolve: 'strapi-plugin-puck' },
 };
 ```
+
+> **Keep the key `puck` exactly as it is.** It is the plugin id, and the id is
+> compiled into the package — the admin menu link, the `plugin::puck.*`
+> custom-field uids, the route prefix and every internal `strapi.plugin(...)` lookup.
+> Renaming it does not rename those, so the plugin half-loads and fails in ways that do
+> not look like a naming problem. `resolve` points at the package; the key does not.
 
 Then register **your** blocks from the admin entry:
 
@@ -76,7 +84,7 @@ Add it in the Content-Type Builder, or straight in a schema:
 // src/api/article/content-types/article/schema.json
 "layout": {
   "type": "customField",
-  "customField": "plugin::content-hub-puck.layout"
+  "customField": "plugin::puck.layout"
 }
 ```
 
@@ -141,7 +149,7 @@ editor agree.
 | `slug` | Generated from the title, de-duplicated with `-2`, `-3`, … |
 | `description` | Used as the page's meta description |
 | `published` | Gates the public endpoint |
-| `layout` | `plugin::content-hub-puck.layout` — Puck's `Data` document, stored verbatim as JSON |
+| `layout` | `plugin::puck.layout` — Puck's `Data` document, stored verbatim as JSON |
 
 `layout` uses this plugin's own custom field, so the Content Manager shows the visual
 editor rather than raw JSON.
@@ -180,14 +188,14 @@ Content Manager reads and writes the `page` content-type through its own generic
 
 | Method | Route | Auth |
 | ------ | ----- | ---- |
-| GET | `/api/content-hub-puck/pages/:slug` | **Public** |
+| GET | `/api/puck/pages/:slug` | **Public** |
 
 The public route is unauthenticated because a composed page is published content — and the
 service only ever returns pages whose `published` flag is set. An unpublished slug is a
 `404`, not a `403`, so a draft's existence is not leaked.
 
 ```jsonc
-// GET /api/content-hub-puck/pages/spring-campaign
+// GET /api/puck/pages/spring-campaign
 {
   "data": {
     "title": "Spring campaign",
@@ -201,7 +209,9 @@ service only ever returns pages whose `published` flag is set. An unpublished sl
 
 ## Rendering it
 
-See [`apps/web`](../../apps/web) for a working Next.js renderer — it is about thirty lines.
+A renderer is about thirty lines: fetch the entry, hand the stored JSON to Puck's `<Render>`
+with the **same config** you registered in the admin. That sameness is the whole point — the
+editor and the site draw from one object, so a block cannot render differently in the two.
 
 ## License
 

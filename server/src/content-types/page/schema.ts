@@ -8,7 +8,7 @@
  */
 export default {
   kind: 'collectionType',
-  collectionName: 'content_hub_puck_pages',
+  collectionName: 'puck_pages',
   info: {
     singularName: 'page',
     pluralName: 'pages',
@@ -34,7 +34,7 @@ export default {
     published: { type: 'boolean', default: false },
     layout: {
       type: 'customField',
-      customField: 'plugin::content-hub-puck.layout',
+      customField: 'plugin::puck.layout',
       default: { content: [], root: { props: {} } },
     },
   },

@@ -1,1 +1,1 @@
-export const PLUGIN_ID = "content-hub-puck";
+export const PLUGIN_ID = "puck";

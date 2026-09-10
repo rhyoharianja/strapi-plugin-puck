@@ -1,7 +1,7 @@
 import type { Core } from '@strapi/strapi';
 
 const controller = ({ strapi }: { strapi: Core.Strapi }) => {
-  const service = () => strapi.plugin('content-hub-puck').service('page');
+  const service = () => strapi.plugin('puck').service('page');
 
   return {
     /**

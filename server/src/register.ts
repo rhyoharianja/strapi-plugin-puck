@@ -11,7 +11,7 @@ import { PLUGIN_ID } from '../../shared/puck';
  *
  *   "layout": {
  *     "type": "customField",
- *     "customField": "plugin::content-hub-puck.layout"
+ *     "customField": "plugin::puck.layout"
  *   }
  */
 const register = ({ strapi }: { strapi: Core.Strapi }) => {

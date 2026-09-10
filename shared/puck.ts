@@ -1,9 +1,9 @@
 /** Contract shared by this plugin's server and admin bundles. */
 
-export const PLUGIN_ID = 'content-hub-puck' as const;
+export const PLUGIN_ID = 'puck' as const;
 
 export const UID = {
-  page: 'plugin::content-hub-puck.page',
+  page: 'plugin::puck.page',
 } as const;
 
 export interface PageDTO {

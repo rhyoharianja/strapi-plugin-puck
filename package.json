@@ -1,13 +1,12 @@
 {
   "name": "strapi-plugin-puck",
-  "version": "0.1.0",
-  "description": "Visual page editor powered by Puck for the Strapi Content Hub",
+  "version": "0.2.0",
+  "description": "Visual page editor powered by Puck",
   "author": "Suryo Galih Kencana Harianja <harianja.suryo@gmail.com>",
   "license": "MIT",
   "keywords": [
     "strapi",
     "strapi-plugin",
-    "content-hub",
     "puck",
     "visual-editor",
     "page-builder"
@@ -69,7 +68,6 @@
   },
   "peerDependencies": {
     "@strapi/strapi": "^5.52.3",
-    "@strapi/sdk-plugin": "^6.1.1",
     "@strapi/design-system": "^2.2.4",
     "@strapi/icons": "^2.2.4",
     "react-intl": "^6.8.9",
@@ -82,9 +80,9 @@
   },
   "strapi": {
     "kind": "plugin",
-    "name": "content-hub-puck",
+    "name": "puck",
     "displayName": "Puck",
-    "description": "Visual page editor powered by Puck for the Strapi Content Hub"
+    "description": "Visual page editor powered by Puck"
   },
   "publishConfig": {
     "access": "public"
